@@ -1,0 +1,11 @@
+#main-menu {
+  background-color: #ced9fd;
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  left: 50%;
+  top: 50%;
+  margin-left:-200px;
+  margin-top:-200px;
+  text-align: center;
+}
