@@ -1,11 +1,21 @@
 const GAMESTATE = {
 	loadGame: () => {
+		// Start and stop engine to create instance
 		ENGINE.loop()
 		cancelAnimationFrame(animation);
-		document.getElementById('load-game').innerHTML = "<h1>Loading..."+loadingTime+"</h1>"
+		// show loading page
+		let loadingTime = 6;
+		let loadAnimation = 0;
+		document.getElementById('load-msg').innerHTML += "Loading.";
 		let interval = setInterval(() => {
 			--loadingTime;
-			document.getElementById('load-game').innerHTML = "<h1>Loading..."+loadingTime+"</h1>"
+			if(loadAnimation<2){
+				document.getElementById('load-msg').innerHTML += "."
+				++loadAnimation;
+			} else {
+				document.getElementById('load-msg').innerHTML = "Loading."
+				loadAnimation = 0;
+			};
 			if(loadingTime<1){
 				clearInterval(interval);
 				GAMESTATE.login();
@@ -20,6 +30,7 @@ const GAMESTATE = {
 		CANVAS.style.display = 'none';
 		MAIN_MENU.style.display = 'none';
 		PAUSE_MENU.style.display = 'none';
+		GAME_OVER.style.display = 'none';
 	},
 	menu: () => {
 		cancelAnimationFrame(animation);
@@ -29,6 +40,7 @@ const GAMESTATE = {
 		CANVAS.style.display = 'none';
 		MAIN_MENU.style.display = 'block';
 		PAUSE_MENU.style.display = 'none';
+		GAME_OVER.style.display = 'none';
 	},
 	playing: () => {
 		ENGINESTATE.status = 'playing';
@@ -38,6 +50,7 @@ const GAMESTATE = {
 		CANVAS.style.display = 'block';
 		MAIN_MENU.style.display = 'none';
 		PAUSE_MENU.style.display = 'none';
+		GAME_OVER.style.display = 'none';
 		
 		cancelAnimationFrame(animation);
 		ENGINE.loop();
@@ -51,21 +64,26 @@ const GAMESTATE = {
 			CANVAS.style.display = 'block';
 			MAIN_MENU.style.display = 'none';
 			PAUSE_MENU.style.display = 'block';
+			GAME_OVER.style.display = 'none';
 		} else if(ENGINESTATE.status == 'paused'){
 			GAMESTATE.playing();
 		};
 	},
 	over: () => {
-		ENGINESTATE.status = 'over';
-		
+		cancelAnimationFrame(animation);
+
 		LOAD_GAME.style.display = 'none';
 		LOGIN.style.display = 'none';
 		CANVAS.style.display = 'block';
 		MAIN_MENU.style.display = 'none';
-		
-		cancelAnimationFrame(animation);
-		ENGINE.loop();
+		PAUSE_MENU.style.display = 'none';
+		GAME_OVER.style.display = 'block';
+
+		setTimeout(() => {
+			GAMESTATE.menu();
+		}, 2000);
 	}
+		
 };
 
 GAMESTATE.loadGame();

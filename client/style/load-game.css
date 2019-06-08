@@ -1,4 +1,13 @@
 #load-game {
-  background-color: #ced9fd;
-  text-align: center;
+  background-color: #a0c8ee;
+}
+
+#engine-msg {
+	margin-top: 25%;
+  	text-align: center;
+}
+
+#load-msg {
+	margin-bottom: 3px;
+  	text-align: center;
 }

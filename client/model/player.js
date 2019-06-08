@@ -17,11 +17,12 @@ const Player = function(id, username) {
 		// context.fillRect(this.x, this.y, this.width, this.height);
 		context.beginPath();
 		context.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-		context.stroke();
+		context.fill();
 	};
 	this.move = () => {
 		this.x += this.dirX;
 		this.y += this.dirY;
+		socket.emit('update player', {id: this.id, x: this.x, y: this.y, r: this.r});
 		//IF IT'S A SQUARE
 		// if(this.x < CANVAS.x){
 		// 	this.dirX = random(1, this.speed);
@@ -59,14 +60,6 @@ const Player = function(id, username) {
 			this.y = CANVAS.height - this.r;
 			SCORE.update('bottom');
 		};
-
-		// To verify if circle touchs another circle
-		// var dx = Math.abs(this.x - other.x);
-		// var dy = Math.abs(this.y - other.y);
-		// var dd = this.r + other.r;
-		// if(dd*dd >= (dx*dx)+(dy*dy)) {
-		// 	console.log(touch);	
-		// };
 	};
 	this.spawn = () => {
 		//IF ITS A SQUARE
@@ -80,5 +73,16 @@ const Player = function(id, username) {
 		this.y = random(0, CANVAS.height-this.r);
 		this.dirX = random(1, this.speed);
 		this.dirY = random(1, this.speed);
+	};
+	this.playersContact = () => {
+		// To verify if circle touchs another circle
+		for(i in players){
+			var dx = Math.abs(this.x - players[i].x);
+			var dy = Math.abs(this.y - players[i].y);
+			var dd = this.r + players[i].r;
+			if(dd*dd >= (dx*dx)+(dy*dy)) {
+				console.log('touch ' + players[i].username);
+			};
+		};
 	};
 };

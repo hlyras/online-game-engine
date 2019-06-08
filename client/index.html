@@ -8,11 +8,19 @@
 	<link rel="stylesheet" type="text/css" href="style/login.css">
 	<link rel="stylesheet" type="text/css" href="style/main-menu.css">
 	<link rel="stylesheet" type="text/css" href="style/pause-menu.css">
+	<link rel="stylesheet" type="text/css" href="style/game-over.css">
 	<script src='/socket.io/socket.io.js'></script>
+	<script>const socket = io.connect();</script>
 </head>
 <body>
 	<!-- LOAD GAME -->
-	<div id="load-game"></div>
+	<div id="load-game">
+		<div id='engine-msg'>
+			<h1>ONLINE NODEJS GAME ENGINE</h1>
+			<h6>Made by Lyra</h6>
+		</div>
+		<h5 id='load-msg'></h5>
+	</div>
 
 	<!-- LOGIN PAGE -->
 	<div id="login" style="display:none">
@@ -20,7 +28,7 @@
 			<li class="login page">
 				<div class="form">
 					<h3 class="title">NICKNAME</h3>
-					<input class="usernameInput" type="text" id="username" maxlength="10"/><br>
+					<input class="usernameInput" type="text" id="username" maxlength="10" autocomplete="off" /><br>
 					<input type="button" class="confirmButton" onclick="registerPlayer()" value="Entrar">
 				</div>
 			</li>
@@ -30,7 +38,7 @@
 	<!-- MAIN MENU -->
 	<div id="main-menu" style="display:none">
 		<h3>MENU PRINCIPAL</h3>
-		<button onclick='enterRoom()'>INICIAR ENGINE</button>
+		<button onclick='enterRoom()' id='game-start-btn'>INICIAR ENGINE</button>
 	</div>
 
 	<!-- GAME CANVAS -->
@@ -41,6 +49,10 @@
 		<h4>PAUSE</h4>
 		<button onclick='endGame()'>MENU PRINCIPAL</button>
 	</div>
+
+	<div id="game-over" style="display:none">
+		<h4>GAME OVER</h4>
+	</div>
 </body>
 <!-- own lib -->
 <script src='system/lib.js'></script>
@@ -48,8 +60,10 @@
 <script src='system/canvas.js'></script>
 <!-- model -->
 <script src='model/player.js'></script>
+<script src='model/score.js'></script>
 <!-- controllers -->
 <script src='controller/player.js'></script>
+<script src='controller/players.js'></script>
 <script src='controller/score.js'></script>
 <!-- system -->
 <script src='system/global-config.js'></script>

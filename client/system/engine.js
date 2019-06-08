@@ -16,9 +16,11 @@ const ENGINESTATE = {
 			if(ENGINESTATE.status=='playing'){
 				scoreController.render();
 				playerController.render();
+				playersController.render();
 			};
 			if(ENGINESTATE.status=='paused'){
 				playerController.render();
+				playersController.render();
 			};
 			if(ENGINESTATE.status=='over'){
 				context.fillStyle = 'black';

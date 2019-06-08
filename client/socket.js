@@ -1,13 +1,26 @@
-const socket = io.connect();
-
 socket.on('my player', data => {
 	player = new Player(data.id, data.username);
 });
 
-socket.on('waiting players', data => {
-	console.log(data);
+socket.on('new player', data => {
+	let newPlayers = [];
+	for(i in data){
+		if(data[i].id != player.id){
+			newPlayers.push(data[i]);
+		};
+	};
+	players = newPlayers;
 });
 
-socket.on('new player', data => {
-	console.log(data);
+socket.on('update players', data => {
+	for(i in players){
+		if(data.id == players[i].id){
+			players[i].x = data.x
+			players[i].y = data.y
+		};
+	};
 });
+
+socket.on('start game', () => {
+
+})

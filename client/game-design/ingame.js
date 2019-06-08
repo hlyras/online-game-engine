@@ -1,3 +1,4 @@
 function endGame(){
-	GAMESTATE.menu();
+	GAMESTATE.over();
+	SCORE.reset()
 };

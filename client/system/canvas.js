@@ -6,6 +6,6 @@ CANVAS.y = 0;
 CANVAS.width = 400;
 CANVAS.height = 400;
 CANVAS.draw = () => {
-	context.fillStyle = '#ced9fd';
+	context.fillStyle = '#a0c8ee';
 	context.fillRect(CANVAS.x, CANVAS.y, CANVAS.width, CANVAS.height);
 };
